@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <style>
+        .login{
+            background-color: darkgray;
+            text-align: center;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+<div class="login">
+    <h1>Login</h1>
+    <form method="post" action="http://localhost:8080/login/callback" id="login_form">
+        <input type="text" name="userID" placeholder="Email">
+        <input type="password" name="userPW" placeholder="Password">
+        <input type="submit" value="Login">
+    </form>
+    <a href="http://localhost:8080/signin">회원가입하기</a>
+</div>
+</body>
+</html>

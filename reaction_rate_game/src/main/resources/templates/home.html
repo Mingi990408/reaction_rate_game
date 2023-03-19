@@ -3,13 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>Homepage</title>
+    <style>
+        .main{
+            background-color: darkgray;
+            margin: 20px;
+            text-align: center;
+            height: 600px;
+        }
+        .login_main{
+            background-color: gray;
+            text-align:right;
+        }
+        .topdiv{
+            margin-right: 50px;
+        }
+        .login{
+            font-size: 20px;
+            color: white;
+            margin: 10px;
+        }
+        .sign_in{
+            font-size: 20px;
+            color: white;
+            margin: 10px;
+        }
+        .maindiv{
+            background-color: darkgray;
+        }
+        .gamediv{
+            position: absolute;
+            top: 33%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .game{
+            color: red;
+            font-size:50px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <div>
-    <a href="http://localhost:8080/login">로그인하기</a>
-  </div>
-    <div>
-      <a href="http://localhost:8080/game"> 반응 속도 측정하기 </a>
+    <div class="main">
+      <div class="login_main">
+          <div class="topdiv">
+              <a class="login" href="/login">Login</a>
+              <a class="sign_in" href="/user/signin">sign in</a>
+          </div>
+      </div>
+        <div class="maindiv">
+            <div class="gamediv">
+                <a class="game" href="/game">play game</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

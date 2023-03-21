@@ -6,5 +6,5 @@ import lombok.Data;
 public class Member {
     String Id;
     String Pw;
-
+    String record;
 }

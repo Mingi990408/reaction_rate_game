@@ -26,7 +26,7 @@ public class HomeController {
 
         return "redirect:http://localhost:8080";
     }
-    @PostMapping("/user/sign_in")
+    @PostMapping("/user/signup")
     public String signin(String userID, String userPW){
         return "redirect:http://localhost:8080";
     }

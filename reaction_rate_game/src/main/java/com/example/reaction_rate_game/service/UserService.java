@@ -7,9 +7,9 @@ import java.util.Optional;
 public interface UserService {
     Member join(Member member);
 
-    Optional<Member> login(Member member);
+    Member login(Member member);
 
-    Optional<Member> change(Member member, String newpw);
+    Member change(Member member, String newpw);
 
     void delete(Member member);
 

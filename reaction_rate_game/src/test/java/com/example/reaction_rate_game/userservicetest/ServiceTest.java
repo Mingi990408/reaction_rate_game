@@ -14,7 +14,7 @@ public class ServiceTest {
     @Test
     public void Test(){
         Member member = new Member();
-        member.setId("memberId");
+        member.setEmail("alsrl4769@naver.com");
         member.setPw("memberPw");
         System.out.println("member = " + userRepository.findMember(member));
     }

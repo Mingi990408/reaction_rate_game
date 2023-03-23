@@ -15,7 +15,8 @@ public class InitTestData {
     @PostConstruct
     public void setTestData(){
         Member memberA = new Member();
-
+        memberA.setEmail("root@naver.com");
+        memberA.setPw("1234");
         ur.save(memberA);
     }
 }

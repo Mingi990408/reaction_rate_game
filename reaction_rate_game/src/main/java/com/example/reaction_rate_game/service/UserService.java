@@ -5,9 +5,9 @@ import com.example.reaction_rate_game.domain.Member;
 import java.util.Optional;
 
 public interface UserService {
-    Member join(Member member);
+    Member join(String Email, String Pw);
 
-    Member login(Member member);
+    Optional<Member> login(String Email, String Pw);
 
     Member change(Member member, String newpw);
 

@@ -5,18 +5,22 @@ import com.example.reaction_rate_game.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository;
+    private final UserRepository ur;
     @Override
-    public Member join(Member member) {
-        return userRepository.save(member);
+    public Member join(String Email,String Pw) {
+        Member member = new Member(Email, Pw);
+        return ur.save(member);
     }
 
     @Override
-    public Member login(Member member) {
-        return userRepository.findMember(member);
+    public Optional<Member> login(String Email, String Pw) {
+        Member member = new Member(Email, Pw);
+        return ur.findMember(member);
     }
 
     @Override

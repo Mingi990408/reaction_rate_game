@@ -14,10 +14,10 @@ public class UserRepositoryImpl implements UserRepository {
     private long Sequence = 0L;
 
     @Override
-    public Member findbyid(String Email) {
+    public Optional<Member> findbyEmail(String Email) {
         for(Member member:store.values()){
             if(member.getEmail().equals(Email)){
-                return member;
+                return Optional.of(member);
             }
         }
         return null;
@@ -26,17 +26,16 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Member save(Member member) {
         member.setId(++Sequence);
-        long memberId = member.getId();
-        store.put(memberId, member);
-        return member;
+        store.put(member.getId(), member);
+        return store.get(Sequence);
     }
 
     @Override
-    public Member findMember(Member member) {
+    public Optional<Member> findMember(Member member) {
         for(Member m :store.values()){
             if(member.getEmail().equals(m.getEmail())){
                 if(member.getPw().equals(m.getPw()))
-                    return member;
+                    return Optional.of(member);
             }
         }
         return null;
@@ -45,5 +44,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Optional<Member> changePw(Member member, String newpw) {
         return Optional.empty();
+    }
+
+    @Override
+    public void clear() {
+        store.clear();
     }
 }

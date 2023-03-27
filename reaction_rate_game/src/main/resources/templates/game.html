@@ -36,6 +36,12 @@
             left: 48%;
             transform: translate(-50%, -50%);
         }
+        .button{
+            font-size: 20px;
+        }
+        .record{
+            display: none;
+        }
         #screen {
             width: 500px;
             height: 300px;
@@ -69,28 +75,55 @@
 
     <div class="maindiv">
         <div class="gamediv">
-            <h2>반응 속도를 측정해보세요~!!</h2> <h2 id="time">시간 : 000 ms</h2>
-            <div id="screen" class="waiting">클릭해서 시작하세요</div>
-            <br><br>
-            <a class="home" href="/">home</a>
+            <form method="post" action="/game/record" id="game_form">
+                <h2>반응 속도를 측정해보세요~!!</h2><h2 id="time" class="time">시간 : 000 ms</h2>
+                <input id="record" class="record" type="text" name="record" value="">
+                <div id="screen" class="waiting">클릭해서 시작하세요</div>
+                <br><br>
+                <input type="submit" id="button" class="button" value="Save Record">
+                <br><br>
+                <a class="home" href="/">home</a>
+            </form>
         </div>
     </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-    let WindowWidth = WindowHeight = DivWidth = DivHeight=T=L=0;
-
     game()
-
     function game() {
         let screen = document.querySelector("#screen");
-        let time = document.querySelector("#time");
+        let time = document.querySelector("#time")
+        let record = document.querySelector("#record")
         let starttime;
         let endtime;
         let timeout;
 
+        const game_from = document.getElementById("game_form");
+
+        game_from.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '/game/record',
+                method: 'POST', // GET 또는 POST 중 선택
+                data: $(this).serialize(), // 폼 데이터를 직렬화하여 전송
+                // success: function (response) {
+                //     // 성공적으로 요청을 처리한 경우 실행할 코드
+                // },
+                // error: function (xhr, status, error) {
+                //     // 요청을 처리하는 동안 에러가 발생한 경우 실행할 코드
+                // }
+            });
+        });
+
+        /**
+         * div 클릭 시 메소드 발생
+         */
         screen.addEventListener("click", function () {
+            /**
+             * 기다리는 중 화면
+             */
             if (screen.classList.contains("waiting")) {
                 screen.classList.remove("waiting");
                 screen.classList.add("ready");
@@ -109,7 +142,8 @@
                 }
             } else if (screen.classList.contains("now")) {
                 endtime = new Date();
-                time.innerText = "시간 : " + (endtime - starttime) + " ms";
+                time.innerText = "시간 :" + (endtime-starttime) + "ms";
+                record.value = (endtime-starttime)
                 endtime = 0;
                 starttime = 0;
                 screen.classList.remove("now");
@@ -118,6 +152,7 @@
             }
         })
     }
+
 </script>
 </body>
 </html>

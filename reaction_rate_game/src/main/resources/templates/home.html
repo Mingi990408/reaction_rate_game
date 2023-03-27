@@ -63,6 +63,10 @@
     const login = document.getElementById("login");
     if(login.textContent !== "Login"){
         signup_logout.innerText = "Logout";
+        signup_logout.addEventListener('click', function (e){
+            e.preventDefault();
+            location.href = "/logout";
+        })
     }
 </script>
 </html>

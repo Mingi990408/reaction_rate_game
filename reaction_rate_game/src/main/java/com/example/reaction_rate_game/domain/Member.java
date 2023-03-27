@@ -4,10 +4,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @ToString
-public class Member {
+public class Member implements Serializable {
     Long Id;
     String Email;
     String Pw;

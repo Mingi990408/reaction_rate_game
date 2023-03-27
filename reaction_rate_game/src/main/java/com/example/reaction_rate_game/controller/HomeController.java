@@ -5,11 +5,10 @@ import com.example.reaction_rate_game.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Controller
@@ -23,7 +22,11 @@ public class HomeController {
      * @return home.html 반환
      */
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(HttpSession session, Model model) {
+        Member member = (Member) session.getAttribute("login");
+        if (member != null){
+            model.addAttribute("nickname", member.getNickname());
+        }
         return "home";
     }
 
@@ -65,12 +68,16 @@ public class HomeController {
      * @return home.html
      */
     @PostMapping("/login/callback")
-    public String logincallback(Model model, String Email, String Password) {
+    public String logincallback(Model model, String Email, String Password, HttpSession session) {
         Optional<Member> login = us.login(Email, Password);
         if (login.isPresent()) {
-            model.addAttribute("nickname", login.get().getNickname());
+            session.setAttribute("login", login.get());
+            return "redirect:/";
         }
-        return "home";
+        else {
+            return "login";
+        }
+
     }
 
     /**
@@ -89,5 +96,10 @@ public class HomeController {
     @PostMapping("/game/record")
     public void gamerecord(String record){
         System.out.println("record = " + record);
+    }
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/login";
     }
 }

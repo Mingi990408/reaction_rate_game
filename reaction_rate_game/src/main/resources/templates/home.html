@@ -22,7 +22,7 @@
             color: white;
             margin: 10px;
         }
-        .sign_in{
+        .signup{
             font-size: 20px;
             color: white;
             margin: 10px;
@@ -47,8 +47,8 @@
     <div class="main">
       <div class="login_main">
           <div class="topdiv">
-              <a class="login" href="/login">Login</a>
-              <a class="signup" href="/user/signup">sign up</a>
+              <a href="/login"><span class="login" id="login" th:text="${nickname != null ? nickname : 'Login'}"></span></a>
+              <a href="/user/signup"><span class="signup" id="signup" >sign up</span></a>
           </div>
       </div>
         <div class="maindiv">
@@ -59,6 +59,10 @@
     </div>
 </body>
 <script>
-
+    const signup_logout = document.getElementById("signup");
+    const login = document.getElementById("login");
+    if(login.textContent !== "Login"){
+        signup_logout.innerText = "Logout";
+    }
 </script>
 </html>

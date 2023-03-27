@@ -4,6 +4,7 @@ import com.example.reaction_rate_game.domain.Member;
 import com.example.reaction_rate_game.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +23,8 @@ public class HomeController {
      * @return home.html 반환
      */
     @GetMapping("/")
-    public String home() {
-        return "home.html";
+    public String home(Model model) {
+        return "home";
     }
 
     /**
@@ -33,7 +34,7 @@ public class HomeController {
      */
     @GetMapping("/game")
     public String game() {
-        return "game.html";
+        return "game";
     }
 
     /**
@@ -64,9 +65,12 @@ public class HomeController {
      * @return home.html
      */
     @PostMapping("/login/callback")
-    public String logincallback(String Email, String Password) {
+    public String logincallback(Model model, String Email, String Password) {
         Optional<Member> login = us.login(Email, Password);
-        return "redirect:http://localhost:8080";
+        if (login.isPresent()) {
+            model.addAttribute("nickname", login.get().getNickname());
+        }
+        return "home";
     }
 
     /**
@@ -77,9 +81,9 @@ public class HomeController {
      * @return home.html
      */
     @PostMapping("/user/signup/callback")
-    public String signupcallback(String Email, String Password) {
-        Member join = us.join(Email, Password);
-        return "redirect:http://localhost:8080";
+    public String signupcallback(Model model, String Email, String Password, String Nickname) {
+        Member join = us.join(Email, Password, Nickname);
+        return "home";
     }
 
     @PostMapping("/game/record")

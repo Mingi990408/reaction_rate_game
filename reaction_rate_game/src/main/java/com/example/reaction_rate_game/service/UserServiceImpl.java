@@ -12,8 +12,8 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository ur;
     @Override
-    public Member join(String Email,String Pw) {
-        Member member = new Member(Email, Pw);
+    public Member join(String Email,String Pw, String Nickname) {
+        Member member = new Member(Email, Pw, Nickname);
         return ur.save(member);
     }
 

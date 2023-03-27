@@ -41,6 +41,7 @@ public class UserRepositoryImpl implements UserRepository {
      */
     @Override
     public Member save(Member member) {
+        clear();
         member.setId(++Sequence);
         store.put(member.getId(), member);
         return store.get(Sequence);
@@ -56,7 +57,7 @@ public class UserRepositoryImpl implements UserRepository {
         for(Member m :store.values()){
             if(member.getEmail().equals(m.getEmail())){
                 if(member.getPw().equals(m.getPw()))
-                    return Optional.of(member);
+                    return Optional.of(m);
             }
         }
         return null;

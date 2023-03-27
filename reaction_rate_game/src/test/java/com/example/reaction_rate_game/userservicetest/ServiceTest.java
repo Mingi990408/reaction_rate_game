@@ -20,7 +20,7 @@ public class ServiceTest {
 
     @Test
     public void saveTest(){
-        Member member = new Member("root1234@naver.com","1234");
+        Member member = new Member("root1234@naver.com","1234","nickname");
         userRepository.save(member);
     }
 

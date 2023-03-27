@@ -5,7 +5,7 @@ import com.example.reaction_rate_game.domain.Member;
 import java.util.Optional;
 
 public interface UserService {
-    Member join(String Email, String Pw);
+    Member join(String Email, String Pw, String Nickname);
 
     Optional<Member> login(String Email, String Pw);
 

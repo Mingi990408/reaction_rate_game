@@ -11,7 +11,7 @@ public class Member {
     Long Id;
     String Email;
     String Pw;
-    String nickname;
+    String Nickname;
     String record;
 
     public Member(String email, String pw) {
@@ -22,6 +22,6 @@ public class Member {
     public Member(String email, String pw, String nickname) {
         Email = email;
         Pw = pw;
-        this.nickname = nickname;
+        Nickname = nickname;
     }
 }

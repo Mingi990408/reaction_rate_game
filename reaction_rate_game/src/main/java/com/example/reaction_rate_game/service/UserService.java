@@ -9,7 +9,7 @@ public interface UserService {
 
     Optional<Member> login(String Email, String Pw);
 
-    Member change(Member member, String newpw);
+    Optional<Member> change(Member member, String newpw);
 
     void delete(Member member);
 

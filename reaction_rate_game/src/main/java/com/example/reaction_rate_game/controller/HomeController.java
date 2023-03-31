@@ -36,7 +36,9 @@ public class HomeController {
      * @return game.html
      */
     @GetMapping("/game")
-    public String game() {
+    public String game(Model model, HttpSession session) {
+        Member member = (Member) session.getAttribute("login");
+        model.addAttribute("member", member);
         return "game";
     }
 
@@ -93,7 +95,7 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    @GetMapping(value = "/profile")
     public String profile(HttpSession session, Model model){
         Member member = (Member) session.getAttribute("login");
         model.addAttribute("member", member);
@@ -110,14 +112,16 @@ public class HomeController {
      * @param session
      * @return 로그아웃 후 바로 로그인
      */
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @GetMapping(value = "/logout")
     public String logout(HttpSession session){
         session.invalidate();
         return "redirect:/";
     }
     
     @PostMapping("/change/pw")
-    public String passwordchange(String Password, String NewPw){
+    public String passwordchange(HttpSession session, String NewPw){
+        Member login = (Member) session.getAttribute("login");
+        us.change(login,NewPw);
         return "redirect:/";
     }
 }

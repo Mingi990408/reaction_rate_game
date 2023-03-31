@@ -5,6 +5,9 @@
     <title>Profile</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
   <style>
+    .home{
+      font-size: 20px;
+    }
     .main{
       background-color: darkgray;
       margin: 20px;
@@ -48,14 +51,15 @@
       <br>
       <b>Email : </b><span th:text="${member.email}"></span>
       <br>
-<!--      th:text="${member.pw}"-->
-      <b>Password : </b><span id="pw" style="display:none" th:text="${member.pw}" ></span><span>********</span>&nbsp
+      <b>Password : </b><span id="pw" th:text="${member.pw}" style="display: none"></span>*********&nbsp;
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Change
       </button>
       <br>
       <b>last record : </b><span th:text="${member.record}"></span>
     </div>
+    <br>
+    <a class="home" href="/">home</a>
   </div>
 </div>
 
@@ -70,9 +74,11 @@
       </div>
       <form method="post" action="/change/pw">
         <div class="modal-body">
-            <input type="password" id="modal_pass" name="Password" placeholder="Current Password"><br><br>
-            <input type="password" id="modal_new_pass" name="NewPw" placeholder="New Password"><br><br>
-            <input type="password" id="modal_new_pass_check" placeholder="New Password Check">
+            <input type="password" id="modal_pass" placeholder="Current Password" onkeyup="checkCurrentPasswordMatch()">
+            <div id="current-password-match"></div><br>
+            <input type="password" id="modal_new_pass" name="NewPw" placeholder="New Password" onkeyup="checkPasswordMatch();"><br><br>
+            <input type="password" id="modal_new_pass_check" placeholder="New Password Check" onkeyup="checkPasswordMatch();">
+          <div id="password-match"></div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -84,19 +90,57 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 <script>
-  let pw = document.getElementById("pw");
-  let change = document.getElementById("change");
-  let modal_pass = document.getElementById("modal_pass");
-  let modal_new_pass = document.getElementById("modal_new_pass");
-  let modal_new_pass_check = document.getElementById("modal_new_pass_check");
+  // function ButtonOn(){
+  //   const change = document.getElementById("change");
+  //
+  //   if(checkCurrentPasswordMatch() && checkPasswordMatch()){
+  //     change.disabled = false;
+  //   }else {
+  //     change.disabled = true;
+  //   }
+  // }
 
-  let new_tag = document.createElement("h4");
 
-  new_tag.innerHTML = "현재 비밀번호가 일치 하지 않습니다.";
+  function checkCurrentPasswordMatch(){
+    let pw = document.getElementById("pw");
+    let modal_pass = document.getElementById("modal_pass").value;
+    let message = document.getElementById("current-password-match");
 
-  if(pw !== modal_pass){
-    modal_pass.appendChild(new_tag);
+    console.log(pw);
+    if(pw.textContent == modal_pass){
+      message.style.color = "green";
+      message.innerHTML = "Passwords match!";
+      return true;
+    }
+    else {
+      message.style.color = "red";
+      message.innerHTML = "Passwords do not match!";
+      return false;
+    }
   }
+
+  function checkPasswordMatch(){
+    let modal_new_pass = document.getElementById("modal_new_pass").value;
+    let modal_new_pass_check = document.getElementById("modal_new_pass_check").value;
+    let message = document.getElementById("password-match");
+    let pw = document.getElementById("pw");
+
+    if(modal_new_pass == modal_new_pass_check && pw.textContent != modal_new_pass){
+      message.style.color = "green";
+      message.innerHTML = "Passwords match!";
+      return true;
+    }else if(pw.textContent == modal_new_pass){
+      message.style.color = "red";
+      message.innerHTML = "Past Password match";
+      return false;
+    } else {
+      message.style.color = "red";
+      message.innerHTML = "Passwords do not match!";
+      return false;
+    }
+  }
+
+
 </script>
 </body>
 </html>

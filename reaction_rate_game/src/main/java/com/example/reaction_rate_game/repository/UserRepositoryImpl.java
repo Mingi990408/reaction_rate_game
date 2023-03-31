@@ -71,6 +71,12 @@ public class UserRepositoryImpl implements UserRepository {
      */
     @Override
     public Optional<Member> changePw(Member member, String newpw) {
+        for(Member m :store.values()){
+            if(member.getEmail().equals(m.getEmail())){
+                m.setPw(newpw);
+                return Optional.of(m);
+            }
+        }
         return Optional.empty();
     }
 

@@ -56,9 +56,34 @@
             <br><br>
             <input class="button" type="submit" value="Login">
         </form>
+        <div id="result" style="display: none">로그인 실패</div>
         <br><br>
-        <a href="/signin">Sign up</a>
+        <a href="/user/signup">Sign up</a>
     </div>
 </div>
+<script>
+    const form = document.getElementById("login_form");
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        try {
+            const response = await fetch('/login/callback', {
+                method: 'POST',
+                body: formData
+            });
+            if (response.ok) {
+                window.location.href = '/';
+            } else if (response.status === 500) {
+                resultDiv.style.display = 'block';
+            } else {
+                // 다른 실패 상태 코드 처리
+            }
+        } catch (error) {
+            // 에러 처리
+        }
+    });
+</script>
 </body>
 </html>

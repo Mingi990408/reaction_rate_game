@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Member change(Member member, String newpw) {
-        return null;
+    public Optional<Member> change(Member member, String newpw) {
+        return ur.changePw(member, newpw);
     }
 
     @Override

@@ -93,13 +93,31 @@ public class HomeController {
         return "home";
     }
 
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public String profile(HttpSession session, Model model){
+        Member member = (Member) session.getAttribute("login");
+        model.addAttribute("member", member);
+        return "profile";
+    }
+
     @PostMapping("/game/record")
     public void gamerecord(String record){
         System.out.println("record = " + record);
     }
+
+    /**
+     * 로그아웃 기능
+     * @param session
+     * @return 로그아웃 후 바로 로그인
+     */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session){
         session.invalidate();
-        return "redirect:/login";
+        return "redirect:/";
+    }
+    
+    @PostMapping("/change/pw")
+    public String passwordchange(String Password, String NewPw){
+        return "redirect:/";
     }
 }

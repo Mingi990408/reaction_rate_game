@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void inputrecord(Member member, String record) {
+        ur.saverecord(member,record);
+    }
+
+    @Override
     public void delete(Member member) {
 
     }

@@ -47,6 +47,14 @@ public class UserRepositoryImpl implements UserRepository {
         return store.get(Sequence);
     }
 
+    @Override
+    public void saverecord(Member member, String record) {
+        for(Member m : store.values()){
+            if(member.getEmail().equals(m.getEmail()))
+                m.setRecord(record);
+        }
+    }
+
     /**
      * 로그인 시 해당 값이 맞는 멤버 찾기
      * @param member

@@ -11,6 +11,8 @@ public interface UserService {
 
     Optional<Member> change(Member member, String newpw);
 
+    void inputrecord(Member member, String record);
+
     void delete(Member member);
 
 }

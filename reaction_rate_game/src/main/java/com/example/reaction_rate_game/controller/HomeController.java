@@ -103,8 +103,9 @@ public class HomeController {
     }
 
     @PostMapping("/game/record")
-    public void gamerecord(String record){
-        System.out.println("record = " + record);
+    public void gamerecord(HttpSession session, String record){
+        Member login = (Member) session.getAttribute("login");
+        us.inputrecord(login,record);
     }
 
     /**

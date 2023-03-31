@@ -9,6 +9,8 @@ public interface UserRepository{
 
     Member save(Member member);
 
+    void saverecord(Member member, String record);
+
     Optional<Member> findMember(Member member);
 
     Optional<Member> changePw(Member member, String newpw);

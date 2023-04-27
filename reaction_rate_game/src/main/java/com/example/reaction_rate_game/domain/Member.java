@@ -6,9 +6,9 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
-@Data
-@NoArgsConstructor
-@ToString
+@Data               // get, set 자동 넣어줌
+@NoArgsConstructor  // 기본 생성자 생략
+@ToString           // toString overriding
 public class Member implements Serializable {
     Long Id;
     String Email;

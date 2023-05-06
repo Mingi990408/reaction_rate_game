@@ -38,11 +38,6 @@
     .modal-body{
       text-align: center;
     }
-    .send-email{
-      height: 50px;
-      font-size: 16px;
-      align-content: center;
-    }
   </style>
 </head>
 <body>
@@ -52,17 +47,20 @@
   </div>
   <div class="main_div">
     <div class="profile_div">
-      <b>Nickname : </b><span th:text="${member.nickname}"></span>
-      <br>
-      <b>Email : </b><span th:text="${member.email}"></span>
-      <br>
-      <b>Password : </b><span id="pw" th:text="${member.pw}" style="display: none"></span>*********&nbsp;
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Change
-      </button>
-      <br>
-      <b>last record : </b><span th:text="${member.record != null ? member.record + 'ms' : 'No Record' }"></span>
-      <button type="button" class="btn btn-primary">Send Record</button>
+        <b>Nickname : </b><span th:text="${member.nickname}"></span>
+        <br>
+        <b>Email : </b><span th:text="${member.email}"></span>
+        <br>
+        <b>Password : </b><span id="pw" th:text="${member.pw}" style="display: none"></span>*********&nbsp;
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Change
+        </button>
+        <br>
+      <form id="profile_form" method="post" action="/mail/send">
+        <b>last record : </b><span th:text="${member.record != null ? member.record + 'ms' : 'No Record' }"></span>
+        <input type="text" th:value="${member.record}" hidden="hidden">
+        <button type="submit" class="btn btn-primary">Send Record</button>
+      </form>
     </div>
     <br>
     <a class="home" href="/">home</a>
@@ -97,6 +95,23 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 <script>
 
+  // const profile_form = document.getElementById("profile_form");
+  //
+  // profile_form.addEventListener('submit', function (e) {
+  //   e.preventDefault();
+  //
+  //   $.ajax({
+  //     url: '/mail/send',
+  //     method: 'POST', // GET 또는 POST 중 선택
+  //     data: $(this).serialize(), // 폼 데이터를 직렬화하여 전송
+  //     // success: function (response) {
+  //     //     // 성공적으로 요청을 처리한 경우 실행할 코드
+  //     // },
+  //     // error: function (xhr, status, error) {
+  //     //     // 요청을 처리하는 동안 에러가 발생한 경우 실행할 코드
+  //     // }
+  //   });
+  // });
 
   function checkCurrentPasswordMatch(){
     let pw = document.getElementById("pw");

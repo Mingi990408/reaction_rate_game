@@ -12,7 +12,7 @@
             background-color: darkgray;
             text-align: center;
             margin: 20px;
-            height: 600px;
+            height: 700px;
         }
         .login_main{
             background-color: gray;
@@ -69,7 +69,7 @@
 <div class="main">
     <div class="login_main">
         <div class="topdiv">
-            <a class="login" href="/profile" th:text="${member.nickname}">Guest</a>
+            <a id="login" class="login" href="/profile" th:text="${member == null ? 'Sign up' : member.nickname}"></a>
         </div>
     </div>
 
@@ -82,13 +82,20 @@
                 <br><br>
                 <input type="submit" id="button" class="button" value="Save Record">
                 <br><br>
-                <a class="home" href="/">home</a>
+                <a class="home" type="button" href="/">home</a>
             </form>
         </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+    const name_button = document.getElementById("login");
+
+    if(name_button.textContent === "Sign up"){
+        name_button.href = "/user/signup";
+    }
+
 
     game()
     function game() {
